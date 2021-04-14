@@ -1,0 +1,9 @@
+server:
+  servlet:
+    context-path: /xxb
+
+spring:
+  profiles:
+    active: dev
+
+

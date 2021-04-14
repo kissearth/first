@@ -1,0 +1,9 @@
+server:
+  port: 8888
+
+spring:
+  datasource:
+    driver-class-name: dm.jdbc.driver.DmDriver
+    jdbcUrl: jdbc:dm://127.0.0.1:5236/XXB_2?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8
+    username: XXB
+    password: root@xxb_2

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ylkj.xxb.domain.dictionary.DictionaryMapper">
+
+	<select id="getByName" resultType="com.ylkj.xxb.domain.dictionary.Dictionary">
+		SELECT * FROM "XXB".T_DICTIONARY
+		WHERE TYPE_CODE = #{type_code} AND NAME = #{name}
+	</select>
+	
+	<select id="getByCode" resultType="com.ylkj.xxb.domain.dictionary.Dictionary">
+		SELECT * FROM "XXB".T_DICTIONARY
+		WHERE TYPE_CODE = #{type_code} AND CODE = #{code}
+	</select>
+	
+	<select id="getRootList" resultType="com.ylkj.xxb.domain.dictionary.Dictionary">
+		SELECT * FROM "XXB".T_DICTIONARY
+		WHERE TYPE_CODE = #{type_code} AND PARENT_CODE IS NULL
+		ORDER BY TYPE_CODE ASC
+	</select>
+	
+	<select id="getChildrenList" resultType="com.ylkj.xxb.domain.dictionary.Dictionary">
+		SELECT * FROM "XXB".T_DICTIONARY
+		WHERE TYPE_CODE = #{type_code} AND PARENT_CODE = #{code}
+		ORDER BY SN ASC
+	</select>
+
+	<insert id="save">
+		INSERT INTO "XXB".T_DICTIONARY (TYPE_CODE, CODE, PARENT_CODE, NAME, SN)
+		VALUES (#{type_code}, #{code}, #{parent_code}, #{name}, #{sn})
+	</insert>
+
+	<update id="update">
+		UPDATE "XXB".T_DICTIONARY SET
+			PARENT_CODE	=	#{parent_code},
+			NAME		=	#{name},
+			SN			=	#{sn}
+		WHERE TYPE_CODE = #{type_code} AND CODE = #{code}
+	</update>
+
+	<delete id="remove">
+		DELETE FROM "XXB".T_DICTIONARY
+		WHERE TYPE_CODE = #{type_code} AND CODE = #{code}
+	</delete>
+
+</mapper>

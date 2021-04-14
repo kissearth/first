@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ylkj.xxb.domain.dictionary.type.DictionaryTypeMapper">
+	
+	<select id="getByName" resultType="com.ylkj.xxb.domain.dictionary.type.DictionaryType">
+		SELECT * FROM "XXB".T_DICTIONARY_TYPE WHERE NAME = #{name}
+	</select>
+	
+	<select id="getByCode" resultType="com.ylkj.xxb.domain.dictionary.type.DictionaryType">
+		SELECT * FROM "XXB".T_DICTIONARY_TYPE WHERE CODE = #{code}
+	</select>
+	
+	<select id="getPage" resultType="com.ylkj.xxb.domain.dictionary.type.DictionaryType">
+		SELECT * FROM "XXB".T_DICTIONARY_TYPE WHERE 1=1
+		<if test="search != null and search != ''">
+			<bind name="search" value="'%' + search + '%'" />
+			AND ( NAME LIKE #{search} OR CODE LIKE #{search} )
+		</if>
+		ORDER BY SN ASC
+	</select>
+	
+	<insert id="save" parameterType="com.ylkj.xxb.domain.dictionary.type.DictionaryType">
+		INSERT INTO "XXB".T_DICTIONARY_TYPE (CODE, NAME, SN)
+		VALUES (#{code}, #{name}, #{sn})
+	</insert>
+
+	<update id="update" parameterType="com.ylkj.xxb.domain.dictionary.type.DictionaryType">
+		UPDATE "XXB".T_DICTIONARY_TYPE SET
+			NAME	=	#{name},
+			SN		=	#{sn}
+		WHERE CODE = #{code}
+	</update>
+	
+	<delete id="remove">
+		DELETE FROM "XXB".T_DICTIONARY_TYPE
+		WHERE CODE = #{code}
+	</delete>
+	
+</mapper>
